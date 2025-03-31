@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR 데이터 표시</title>
+    <style>
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <h2>QR 코드 데이터</h2>
+    <table id="dataTable">
+        <tbody>
+            <tr><th>이름</th><td id="name"></td></tr>
+            <tr><th>나이</th><td id="age"></td></tr>
+            <tr><th>직업</th><td id="job"></td></tr>
+            <tr><th>도시</th><td id="city"></td></tr>
+            <tr><th>이메일</th><td id="email"></td></tr>
+        </tbody>
+    </table>
+    
+    <script>
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        function displayData() {
+            const dataString = getQueryParam("data");
+            if (!dataString) return;
+            
+            const data = dataString.split(":");
+            const fields = ["name", "age", "job", "city", "email"];
+            
+            fields.forEach((field, index) => {
+                const cell = document.getElementById(field);
+                if (cell && data[index]) {
+                    cell.textContent = data[index];
+                }
+            });
+        }
+
+        displayData();
+    </script>
+</body>
+</html>
